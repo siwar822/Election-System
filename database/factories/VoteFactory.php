@@ -9,9 +9,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Vote::class, function (Faker $faker) {
     return [
-        //
-        'cand_id' => User::get('id')->random(),
-        'voter_id' => User::get('id')->random(),
+        'cand_id' => Candidat::get('id')->random(),
+        'voter_id' => Voter::get('id')->random(),
         'vote_date' => $faker->date,
         'vote_time' => $faker->time,
         'created_at' => now(),

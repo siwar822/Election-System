@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'AppController@home')->name('home')->middleware('auth');
+
+//  Route::resource('/voter', 'VoterController');
+ Route::resource('/user', 'UserController')->middleware('auth');
