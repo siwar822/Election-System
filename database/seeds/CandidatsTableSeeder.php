@@ -11,7 +11,6 @@ class CandidatsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         factory(Candidat::class, 50)->create();
     }
 }

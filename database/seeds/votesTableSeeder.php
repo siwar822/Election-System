@@ -2,7 +2,7 @@
 use App\Vote;
 use Illuminate\Database\Seeder;
 
-class votesTableSeeder extends Seeder
+class VotesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class votesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         factory(Vote::class, 100)->create();
     }
 }

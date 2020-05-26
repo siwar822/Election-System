@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Candidat::class, function (Faker $faker) {
     return [
-        //
         'name'=> $faker->name,
         'cin'=> $faker->sentence,
         'email'=> $faker->unique()->safeEmail,

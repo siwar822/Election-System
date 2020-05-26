@@ -14,7 +14,8 @@ class CandidatController extends Controller
      */
     public function index()
     {
-        //
+        $candidates = Candidat::orderBy('created_at', 'desc')->paginate(10);
+        return view('candidates.index', compact('candidates'));
     }
 
     /**
