@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Voter::class, function (Faker $faker) {
     return [
-        //
         'name'=> $faker->name,
         'cin'=> $faker->sentence,
         'phone'=> $faker->e164PhoneNumber,

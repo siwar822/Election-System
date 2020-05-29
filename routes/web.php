@@ -12,12 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
+/*Route::get('/dashboard', function () {
+    return view('admin.dashbord');
+});*/
+
+Route::resource('/candidates', 'CandidatController');
+
+
+
+
+Route::get('dashboard', 'CandidatController@dashboard');
+
 
 Auth::routes();
 
 Route::get('/home', 'AppController@home')->name('home')->middleware('auth');
 
-//  Route::resource('/voter', 'VoterController');
- Route::resource('/user', 'UserController')->middleware('auth');

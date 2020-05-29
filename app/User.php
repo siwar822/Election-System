@@ -8,8 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
-protected $guarded = [];
     use Notifiable;
 
     /**
@@ -18,7 +16,7 @@ protected $guarded = [];
      * @var array
      */
     protected $fillable = [
-        'name','email', 'password','role','cin','phone','sexe'
+        'name','email', 'password','role'
     ];
 
     /**
@@ -38,11 +36,4 @@ protected $guarded = [];
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
-    public function vote()
-    {
-        $this->belongsTo('App\Vote');
-    }
-    
 }

@@ -14,7 +14,8 @@ class CandidatController extends Controller
      */
     public function index()
     {
-        //
+        $candidats = Candidat::all();
+        return view('admin.candidates')->with('candidats', $candidats);
     }
 
     /**
@@ -44,9 +45,10 @@ class CandidatController extends Controller
      * @param  \App\Candidat  $candidat
      * @return \Illuminate\Http\Response
      */
-    public function show(Candidat $candidat)
+    public function show($id)
     {
-        //
+        $candidat = Candidat::find($id);
+        return view('admin.show')->with('candidat', $candidat);
     }
 
     /**
@@ -55,9 +57,17 @@ class CandidatController extends Controller
      * @param  \App\Candidat  $candidat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Candidat $candidat)
+    public function edit($id)
     {
-        //
+       $candidats = Candidat::find($id);
+       return view('admin.editCand')->with('candidats', $candidats);
+    }
+
+    public function dashboard()
+    {
+       $candidats = Candidat::orderBy('votecount', 'desc')->limit(5)->get();
+        return view('admin.dashbord')->with('candidats', $candidats);
+
     }
 
     /**
@@ -67,10 +77,40 @@ class CandidatController extends Controller
      * @param  \App\Candidat  $candidat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Candidat $candidat)
+    public function update(Request $request,$id)
     {
-        //
+
+
+        $request->validate([
+
+            'name' => 'required',
+            'cin' => 'required',
+            'email' => 'required',
+            'Username' => 'required',
+            'Sexe' => 'required',
+            'Birthday' => 'required',
+            'class' => 'required',
+            'departement' => 'required'
+        ]);
+        $candidat = Candidat::find($id);
+
+            $candidat->name = $request->get('name');
+            $candidat->cin = $request->get('cin');
+            $candidat->email = $request->get('email');
+            $candidat->username = $request->get('Username');
+            $candidat->sexe = $request->get('Sexe');
+            $candidat->birth_date = $request->get('Birthday');
+            $candidat->class = $request->get('class');
+            $candidat->department = $request->get('departement');
+            $candidat->save();
+  
+
+  
+        return redirect()->route('candidates.index')
+                        ->with('msg','Candidat updated successfully');
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +118,13 @@ class CandidatController extends Controller
      * @param  \App\Candidat  $candidat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Candidat $candidat)
+    public function destroy($id)
     {
-        //
+       $candidat = Candidat::find($id);
+       $candidat->delete();
+        return redirect('candidates')->with('msg', 'Candidat deleted successfuly !');
+
     }
+
+    
 }
