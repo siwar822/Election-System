@@ -10,4 +10,6 @@ class Candidat extends Model
     {
         return $this->hasMany('App\Vote');
     }
+
+    
 }

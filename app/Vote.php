@@ -12,6 +12,6 @@ class Vote extends Model
     }
     public function voter()
     {
-        $this->belongsTo('App\Voter');
+        $this->belongsTo('App\User');
     }
 }
