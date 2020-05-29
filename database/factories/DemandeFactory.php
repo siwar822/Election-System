@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Candidat;
+use App\Demande;
 use Faker\Generator as Faker;
 
-$factory->define(Candidat::class, function (Faker $faker) {
+$factory->define(Demande::class, function (Faker $faker) {
     return [
         'name'=> $faker->name,
         'cin'=> $faker->sentence,
@@ -20,7 +20,5 @@ $factory->define(Candidat::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'created_at' => now(),
         'updated_at' => now(),
-       
-        
     ];
 });

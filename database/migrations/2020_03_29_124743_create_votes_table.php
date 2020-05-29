@@ -21,7 +21,7 @@ class CreateVotesTable extends Migration
             $table->time('vote_time');
 
             $table->foreign('cand_id')->references('id')->on('candidats');
-            $table->foreign('voter_id')->references('id')->on('voters');
+            $table->foreign('voter_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
