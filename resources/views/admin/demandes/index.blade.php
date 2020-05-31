@@ -35,7 +35,36 @@ button{
 </div>
 
 @endif
+@if (session('acceptrequest'))
 
+<div class="alert alert-success alert-dismissible fade show" style="text-align:center" role="alert">
+
+    {{ session('acceptrequest') }}
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+    </button>
+
+</div>
+
+@endif
+@if (session('refuserequest'))
+
+<div class="alert alert-success alert-dismissible fade show" style="text-align:center" role="alert">
+
+    {{ session('refuserequest') }}
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+    </button>
+
+</div>
+
+@endif
 
                     <h1 class="panel-title" style="font-size:20px;"> All requests </h1>         
                   
@@ -92,8 +121,8 @@ button{
                                           </td>
                                         
                                         <td><img class="card-img-top" src="{{ asset('storage/'.$demande->photo) }}" alt="{{ $demande->name }}" style="width:100px;height:100px"></td>
-                              
-                                        <td><a href="{{ route('demande.show', $demande->id) }}" class="btn btn-outline-primary"style="width:100px;height:35px">Afficher</a>
+                        
+                                        <td><a href="{{ route('demande.show', $demande->id) }}" class="btn btn-outline-primary"style="width:100px;height:35px">Show</a>
                                         <td>
                                         <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal"style="width:115px;height:35px">Delete</a> 
                                         <td> 
@@ -104,13 +133,13 @@ button{
                             </tbody>
                         </table>
 </div>
-
+{{ $demandes->links() }}
 @foreach ($demandes as $demande)  
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Delete booking</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Delete request</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

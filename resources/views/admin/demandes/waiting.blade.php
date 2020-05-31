@@ -71,7 +71,7 @@ button{
                                         
                                         <td><img class="card-img-top" src="{{ asset('storage/'.$wait->photo) }}" alt="{{ $wait->name }}" style="width:100px;height:100px"></td>
                                     
-                                        <td><a href="{{ route('demande.show', $wait->id) }}" class="btn btn-outline-primary"style="width:100px;height:35px">Afficher</a>
+                                        <td><a href="{{ route('demande.show', $wait->id) }}" class="btn btn-outline-primary"style="width:100px;height:35px">Show</a>
                                         <td>
                                         <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal"style="width:115px;height:35px">Delete</a> 
                                         <td> 

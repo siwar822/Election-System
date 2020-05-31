@@ -9,7 +9,21 @@
 @section('content')
         
     
+@if (session('updaterequest'))
 
+<div class="alert alert-success alert-dismissible fade show" style="text-align:center" role="alert">
+
+    {{ session('updaterequest') }}
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+        <span aria-hidden="true">&times;</span>
+
+    </button>
+
+</div>
+
+@endif
                     <div class="pearls row" style="width:700px">
                         <div class="pearl done col-4 one">
                             <div class="pearl-icon"><svg class="bi bi-person-lines-fill" style="margin-top:5px" width="30px" height="20px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +37,7 @@
   <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0v1z"/>
   <path fill-rule="evenodd" d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
 </svg></div>
-                            <span class="pearl-title">Trait</span>
+                            <span class="pearl-title">Process the request</span>
                         </div>
                         <div class="pearl done col-4 three">
                             <div class="pearl-icon" >
@@ -41,7 +55,9 @@
 
                             <h3>{{$demande->name}}</h3>
                        
-                                <img  src="{{ asset('storage/'.$demande->photo) }}" alt="{{ $demande->name }} "style="width:300px;height:150px">
+                                <img src="{{ asset('storage/'.$demande->photo) }}" alt="{{ $demande->name }} "style="width:300px;height:150px">
+                                <a href="" class="btn btn-outline-warning" data-toggle="modal" data-target="#photo"style="width:150px;height:35px">Edit photo</a>
+ 
                                 <br>
                                    <strong>Sexe: </strong> {{$demande->sexe}}
                                   <br>
@@ -73,6 +89,7 @@
                         <a href="" class="btn btn-outline-success" data-toggle="modal" data-target="#confirmAcceptModal"style="width:150px;height:35px">Accept</a>
                         <a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmRejectModal"style="width:150px;height:35px">Reject</a>
 @endif;
+<a href="{{ route('demande.edit', $demande->id) }}" class="btn btn-outline-info">Edit</a>
 <br>
 
 <div class="modal fade" id="confirmAcceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -128,6 +145,39 @@
             @csrf
             @method('GET')
         </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="photo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit photo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+ 
+        
+        <form id="photoed" action="{{ route('photo',$demande->id ) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+@method('PATCH')
+
+        <input type="file" name="photo"  id="photo" class="form-control" placeholder="Enter your phone" >
+          @error('photo')<div class="text-danger">{{ $message }}</div> @enderror
+</form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"style="width:100px;height:35px">Close</button>
+          <button type="button" class="btn btn-outline-warning"style="width:125px;height:35px"
+            onclick="event.preventDefault();
+            document.querySelector('#photoed').submit();">Update photo</button>
+        </div>
+               
+   
+      
       </div>
     </div>
   </div>
