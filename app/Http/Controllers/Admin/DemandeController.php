@@ -9,6 +9,7 @@ use App\Candidat;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewRequest;
 use App\Mail\AcceptRequest;
+use App\Mail\RefuseRequest;
 
 
 class DemandeController extends Controller
@@ -53,6 +54,7 @@ class DemandeController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate($this->validationRules());
+      
         $data['photo'] = $request->photo->store('uploads', 'public');
     
         $demande = Demande::create($data);
@@ -92,24 +94,37 @@ class DemandeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Meal  $meal
+     * @param  \App\Demande $demande
      * @return \Illuminate\Http\Response
      */
-    public function edit(Meal $meal)
+    public function edit(Demande $demande)
     {
-        //
+        return view('admin.demandes.edit', compact('demande'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Meal  $meal
+     * @param  \App\Demande  $demande
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Meal $meal)
+    public function update(Request $request, Demande $demande)
     {
-        //
+        $validatedData = $request->validate($this->validationRules());
+        $validatedphoto = $request->validate($this->validationphoto());
+             if( $validatedphoto ){
+        $validatedphoto['photo'] = $request->photo->store('uploads', 'public');
+        
+
+        $demande->update($validatedphoto);
+ 
+             }
+             else{
+                $demande->update($validatedData);
+             }
+
+        return redirect()->route('demande.show', $demande->id)->with('updaterequest', 'request updated successfully');
     }
 
     /**
@@ -190,11 +205,11 @@ class DemandeController extends Controller
              $candidat->save();
              $dem->status = 1;
              $dem->save();
+             $email = $dem->email;
            
-         
         }
-        $de
-        Mail::to($demande->email)->send(new AcceptRequest($demande));
+        Mail::to($email)->send(new AcceptRequest($demande));
+  
         return redirect()->route('demande.index')->with('acceptrequest', 'new candidat added  successfuly and an email is sent to this candidat');
         
        
@@ -206,9 +221,28 @@ class DemandeController extends Controller
         foreach ($demande as $dem) {
             $dem->status = 2;
             $dem->save();
-            return redirect()->route('demande.index');
-    }
+
+            $email = $dem->email;
+           
+        }
+        Mail::to($email)->send(new RefuseRequest($demande));
+
+    return redirect()->route('demande.index')->with('refuserequest', 'the request is rejected successfuly and an email is sent to the applicant');;
 }
+public function photo($id,Request $request)
+    {
+        $demande = Demande::where('id',$id)->get();
+        foreach ($demande as $dem) {
+             $ID = $dem->id;
+        $dem->photo = $request->photo->store('uploads', 'public');
+        $dem->save();
+        }
+       
+ 
+
+
+        return redirect()->route('demande.show', $ID)->with('updatephoto', 'photo updated successfully');
+    }
     private function validationRules()
     {
         return [
@@ -217,12 +251,20 @@ class DemandeController extends Controller
             'cin' => 'required|string|min:8',
             'sexe' => 'required|string',
             'email' => 'required|string|email',
-            'photo' => 'required|file|image',
+            'photo' => 'file|image',
             'department' => 'required|string',
             'class' => 'required|string',
             'description' => 'required|string',
           
         ];
+    }
+        private function validationphoto()
+        {
+            return [
+             
+                'photo' => 'file|image',
+               
+            ];
     }
 
     
