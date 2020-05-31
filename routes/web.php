@@ -21,6 +21,7 @@ Route::get('/admin', function () {
 Route::get('/candidates', function () {
     return view('admin.candidates');
 });
+Route::post('/demandestr','Admin\DemandeController@store')->name('store');
 
 Auth::routes();
 
@@ -49,5 +50,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('/demande','DemandeController');
 Route::get('/demandeac/{id}','DemandeController@accept')->name('accept');
 Route::get('/demanderej/{id}','DemandeController@refuse')->name('refuse');
+Route::any('/demandephot/{id}','DemandeController@photo')->name('photo');
             });
 });

@@ -31,7 +31,7 @@
   }
   </script>
                     <br>
-					<form action="{{ route('demande.store') }}" method="post" enctype="multipart/form-data">
+					<form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
 					@csrf
              <div class="col-lg-12">
             <div class="row">
