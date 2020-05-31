@@ -3,7 +3,7 @@
 @foreach ($demande as $dem)
 Dear **{{ $dem->name}}**
 @endforeach
-We are sending you this message to let you know  that  your request  is approved and you are a new candidate
+We are sending you this message to let you know  that  your request  is not approved and thanks for your participation
 
 
 Thanks,<br>
