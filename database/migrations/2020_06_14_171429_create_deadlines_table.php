@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLoginsTable extends Migration
+class CreateDeadlinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateLoginsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logins', function (Blueprint $table) {
-            $table->bigIncrements('loginid');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('role');
-            $table->rememberToken();
+        Schema::create('deadlines', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->date('jour');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateLoginsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logins');
+        Schema::dropIfExists('deadlines');
     }
 }

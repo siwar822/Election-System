@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVotersTable extends Migration
+class CreateDemandesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,24 @@ class CreateVotersTable extends Migration
      */
     public function up()
     {
-        Schema::create('voters', function (Blueprint $table) {
-            $table->bigIncrements('idvoter');
+        Schema::create('demandes', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('cin');
-       
-            $table->string('phone');
             $table->string('email');
-            $table->string('username');
+        
+        
+            $table->string('photo');
             $table->string('sexe');
             $table->date('birth_date');
-            $table->integer('voting_status');
             $table->string('department');
             $table->string('class');
+        
+            $table->string('description');
+
+            $table->integer('status')->default(0);
+            $table->integer('vu')->default(1);
+            
             $table->timestamps();
         });
     }
@@ -37,6 +42,6 @@ class CreateVotersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('voters');
+        Schema::dropIfExists('demandes');
     }
 }

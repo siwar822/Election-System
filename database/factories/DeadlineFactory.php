@@ -2,16 +2,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Vote;
-use App\Candidat;
-use App\User;
+use App\Deadline;
 use Faker\Generator as Faker;
 
-$factory->define(Vote::class, function (Faker $faker) {
+$factory->define(Deadline::class, function (Faker $faker) {
     return [
-   
-        'user_id' => User::get('id')->random(),
+        
+        'jour'=> $faker->date,
       
+
+     
         'created_at' => now(),
         'updated_at' => now(),
     ];

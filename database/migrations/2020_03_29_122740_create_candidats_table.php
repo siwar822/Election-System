@@ -18,16 +18,18 @@ class CreateCandidatsTable extends Migration
             $table->string('name');
             $table->string('cin');
             $table->string('email');
-            $table->string('phone');
-            $table->string('username');
+        
+        
             $table->string('photo');
             $table->string('sexe');
             $table->date('birth_date');
-            $table->integer('votecount');
             $table->string('department');
             $table->string('class');
-            $table->rememberToken();
+        
+            $table->string('description');
 
+            $table->integer('votecount')->default(0);
+            
             $table->timestamps();
         });
     }

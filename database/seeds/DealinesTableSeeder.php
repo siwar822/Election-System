@@ -1,8 +1,8 @@
 <?php
-use App\Admin;
+use App\Deadline;
 use Illuminate\Database\Seeder;
 
-class AdminsTableSeeder extends Seeder
+class DealinesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Admin::class, 1)->create();
+        //
     }
 }
