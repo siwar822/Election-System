@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Voter;
-
+use App\Deadline;
 use Illuminate\Http\Request;
 
-class VoterController extends Controller
+class DeadlineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class VoterController extends Controller
      */
     public function index()
     {
-      $voters =Voter::all();
-      return view('voters.index', compact('voters'));
+        //
     }
 
     /**
@@ -43,10 +41,10 @@ class VoterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Voter  $voter
+     * @param  \App\Deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function show(Voter $voter)
+    public function show(Deadline $deadline)
     {
         //
     }
@@ -54,10 +52,10 @@ class VoterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Voter  $voter
+     * @param  \App\Deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function edit(Voter $voter)
+    public function edit(Deadline $deadline)
     {
         //
     }
@@ -66,10 +64,10 @@ class VoterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Voter  $voter
+     * @param  \App\Deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Voter $voter)
+    public function update(Request $request, Deadline $deadline)
     {
         //
     }
@@ -77,10 +75,10 @@ class VoterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Voter  $voter
+     * @param  \App\Deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Voter $voter)
+    public function destroy(Deadline $deadline)
     {
         //
     }

@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Candidat;
+use App\User;
+use App\Vote;
 use Illuminate\Http\Request;
 
 class CandidatController extends Controller
@@ -14,7 +17,8 @@ class CandidatController extends Controller
      */
     public function index()
     {
-        //
+        $candidats=Candidat::all();
+        return view('candidat.index')->with('candidats',$candidats);
     }
 
     /**
@@ -46,7 +50,7 @@ class CandidatController extends Controller
      */
     public function show(Candidat $candidat)
     {
-        //
+        return view('candidat.show ')->with('candidat',$candidat);
     }
 
     /**
@@ -82,4 +86,23 @@ class CandidatController extends Controller
     {
         //
     }
+    public function confirmer($id)
+    {
+        $candidat = Candidat::where('id',$id)->get();
+
+     
+        foreach ($candidat as $cand) {
+            $cand->votecount += 1;
+              $cand->save();
+        }
+        Auth::user()->voting_status=1;
+        $vote = new Vote;
+        $vote->user_id = Auth::user()->id;
+        $vote->save();
+        Auth::user()->save();
+        //dd(Auth::user()->voting_status);
+        return redirect()->route('home')->with('confirmed','your voting passed successfully');
+    
+
+}
 }
